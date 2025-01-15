@@ -19,11 +19,11 @@ const fontMono = FontMono({
 
 export const metadata: Metadata = {
   title: {
-    default: "HeyGen Interactive Avatar SDK Demo",
-    template: `%s - HeyGen Interactive Avatar SDK Demo`,
+    default: "EMAAR Interactive Avatar",
+    template: `%s - EMAAR Interactive Avatar`,
   },
   icons: {
-    icon: "/heygen-logo.png",
+    icon: "/emaar_logo.svg",
   },
 };
 
@@ -46,7 +46,7 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans`}
     >
       <head />
-      <body className={clsx("min-h-screen bg-background antialiased")}>
+      <body className={clsx("min-h-screen antialiased bg-[url('/emaar_mall.jpeg')]  bg-contain bg-center bg-no-repeat bg-fixed")}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <main className="relative flex flex-col h-screen w-screen">
             <NavBar />

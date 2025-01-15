@@ -25,6 +25,8 @@ import InteractiveAvatarTextInput from "./InteractiveAvatarTextInput";
 
 import {AVATARS, STT_LANGUAGE_LIST} from "@/app/lib/constants";
 
+const GREETING_TEXT = "Merhaba, ben Emaar Square Mall'un dijital avatarıyım, size nasıl yardımcı olabilir miyim?";
+
 export default function InteractiveAvatar() {
   const [isLoadingSession, setIsLoadingSession] = useState(false);
   const [isLoadingRepeat, setIsLoadingRepeat] = useState(false);
@@ -32,7 +34,7 @@ export default function InteractiveAvatar() {
   const [debug, setDebug] = useState<string>();
   const [knowledgeId, setKnowledgeId] = useState<string>("");
   const [avatarId, setAvatarId] = useState<string>("");
-  const [language, setLanguage] = useState<string>('en');
+  const [language, setLanguage] = useState<string>('tr');
 
   const [data, setData] = useState<StartAvatarResponse>();
   const [text, setText] = useState<string>("");
@@ -89,7 +91,7 @@ export default function InteractiveAvatar() {
     });
     try {
       const res = await avatar.current.createStartAvatar({
-        quality: AvatarQuality.Low,
+        quality: AvatarQuality.Medium,
         avatarName: avatarId,
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
         voice: {
@@ -106,7 +108,15 @@ export default function InteractiveAvatar() {
       await avatar.current?.startVoiceChat({
         useSilencePrompt: false
       });
-      setChatMode("voice_mode");
+      setChatMode("text_mode");
+
+      // Add greeting after successful initialization
+      await avatar.current.speak({ 
+        text: GREETING_TEXT, 
+        taskType: TaskType.TALK, 
+        taskMode: TaskMode.SYNC 
+      });
+
     } catch (error) {
       console.error("Error starting avatar session:", error);
     } finally {
