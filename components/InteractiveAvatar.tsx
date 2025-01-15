@@ -25,7 +25,7 @@ import InteractiveAvatarTextInput from "./InteractiveAvatarTextInput";
 
 import {AVATARS, STT_LANGUAGE_LIST} from "@/app/lib/constants";
 
-const GREETING_TEXT = "Merhaba, ben Emaar Square Mall'un dijital avatarıyım, size nasıl yardımcı olabilir miyim?";
+const GREETING_TEXT = "Merhaba, ben Emaar Square Mall'un dijital Avatarıyım, size nasıl yardımcı olabilir miyim?";
 
 export default function InteractiveAvatar() {
   const [isLoadingSession, setIsLoadingSession] = useState(false);
@@ -95,7 +95,7 @@ export default function InteractiveAvatar() {
         avatarName: avatarId,
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
         voice: {
-          voiceId: "Qu9hh7mATto4iwdbnsoO",
+          voiceId: "cmLRg29Xchemm2f30aO8",
           rate: 1, // 0.5 ~ 1.5
           emotion: VoiceEmotion.FRIENDLY,
         },
@@ -108,7 +108,7 @@ export default function InteractiveAvatar() {
       await avatar.current?.startVoiceChat({
         useSilencePrompt: false
       });
-      setChatMode("text_mode");
+      setChatMode("voice_mode");
 
       // Add greeting after successful initialization
       await avatar.current.speak({ 
