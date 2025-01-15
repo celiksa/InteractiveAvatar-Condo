@@ -67,15 +67,19 @@ export default function InteractiveAvatar() {
     avatar.current = new StreamingAvatar({
       token: newToken,
     });
-    avatar.current.on(StreamingEvents.AVATAR_START_TALKING, (e) => {
-      console.log("Avatar started talking", e);
+    avatar.current.on(StreamingEvents.AVATAR_START_TALKING, (event) => {
+      console.log("Avatar started talking", event);
     });
-    avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, (e) => {
-      console.log("Avatar stopped talking", e);
+    avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, (event) => {
+      console.log("Avatar stopped talking", event);
     });
-    avatar.current.on(StreamingEvents.STREAM_DISCONNECTED, () => {
-      console.log("Stream disconnected");
+    avatar.current.on(StreamingEvents.STREAM_DISCONNECTED, (event) => {
+      console.log("Stream disconnected", event);
       endSession();
+    });
+    avatar.current?.on(StreamingEvents.AVATAR_TALKING_MESSAGE, (message) => {
+      console.log("Avatar Talking message", message);
+      
     });
     avatar.current?.on(StreamingEvents.STREAM_READY, (event) => {
       console.log(">>>>> Stream ready:", event.detail);
@@ -85,8 +89,12 @@ export default function InteractiveAvatar() {
       console.log(">>>>> User started talking:", event);
       setIsUserTalking(true);
     });
+    avatar.current?.on(StreamingEvents.USER_TALKING_MESSAGE, (message) => {
+      console.log(">>>>> User Talking message:", message);
+      
+    });
     avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
-      console.log(">>>>> User stopped talking:", event);
+      console.log(">>>>> User stopped talking:", event.detail);
       setIsUserTalking(false);
     });
     try {
@@ -95,12 +103,15 @@ export default function InteractiveAvatar() {
         avatarName: avatarId,
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
         voice: {
-          voiceId: "cmLRg29Xchemm2f30aO8",
+          voiceId: "cmLRg29Xchemm2f30aO8",  // Emaar 1
+          //voiceId: "Qu9hh7mATto4iwdbnsoO", // Emaar 2
+          //voiceId: "f772a099cbb7421eb0176240c611fc43", // Cecee
           rate: 1, // 0.5 ~ 1.5
-          emotion: VoiceEmotion.FRIENDLY,
+          emotion: VoiceEmotion.ORIGINAL,
         },
         language: language,
         disableIdleTimeout: true,
+        version: "v2",
       });
 
       setData(res);
